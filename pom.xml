@@ -17,6 +17,7 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+		<!--Required for Tracer instrumentation-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -25,23 +26,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
+		<!--Required for Tracer instrumentation-->
 		<dependency>
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-tracing-bridge-brave</artifactId>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>io.zipkin.reporter2</groupId>-->
-<!--			<artifactId>zipkin-reporter-brave</artifactId>-->
-<!--		</dependency>-->
-		<!--<dependency>
-			<groupId>io.projectreactor</groupId>
-			<artifactId>reactor-core-micrometer</artifactId>
-		</dependency>-->
-		<!--<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-aop</artifactId>
-		</dependency>-->
-
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>

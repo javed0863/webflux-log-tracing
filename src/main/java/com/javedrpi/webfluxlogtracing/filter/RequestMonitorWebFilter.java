@@ -33,6 +33,9 @@ public class RequestMonitorWebFilter implements WebFilter {
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         long startTime = System.currentTimeMillis();
         return chain.filter(exchange)
+                /**
+                 * Preparing context for the Tracer Span used in TracerConfiguration
+                 */
                 .contextWrite(context -> {
                     ContextSnapshot.setThreadLocalsFrom(context, ObservationThreadLocalAccessor.KEY);
                     return context;
@@ -40,6 +43,9 @@ public class RequestMonitorWebFilter implements WebFilter {
                 .doFinally(signalType -> {
                     long endTime = System.currentTimeMillis();
                     long executionTime = endTime - startTime;
+                    /**
+                     * Extracting traceId added in TracerConfiguration Webfilter bean
+                     */
                     List<String> traceIds = ofNullable(exchange.getResponse().getHeaders().get("traceId")).orElse(List.of());
                     MetricsLogTemplate metricsLogTemplate = new MetricsLogTemplate(
                             String.join(",", traceIds),
